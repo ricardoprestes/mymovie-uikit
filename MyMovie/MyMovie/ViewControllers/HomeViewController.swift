@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     
     private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = SnappingFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
@@ -21,6 +21,8 @@ class HomeViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = false
+        collectionView.decelerationRate = .fast
         return collectionView
     }()
 
