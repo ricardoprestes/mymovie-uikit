@@ -57,6 +57,21 @@ class HomeViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let centerX = scrollView.contentOffset.x + (scrollView.frame.width / 2)
+        
+        for cell in collectionView.visibleCells {
+            guard let cell = cell as? MovieCell else { continue }
+            let baseFrame = cell.convert(cell.bounds, to: view)
+            let distance = baseFrame.midX - centerX
+            
+            let scale = max(0.9, 1 - abs(distance / collectionView.bounds.width))
+            cell.transform = CGAffineTransform(scaleX: scale, y: scale)
+            
+            cell.applyParallax(in: collectionView)
+        }
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
